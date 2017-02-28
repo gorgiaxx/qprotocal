@@ -1,0 +1,71 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+import binascii
+import cmd
+import os
+import sys
+import importlib
+import threading
+sys.path.append("..")
+import qprotocal
+
+verification_image_file = os.getcwd() + '/code.jpg'
+q = qprotocal.QQ("qqnumber", "password")
+
+
+
+def qqbot_process():
+    # 心跳包
+    pass
+
+class QQBotCLI(cmd.Cmd):
+    intro = 'Type "?" or "help" for more information.\n'
+    prompt = '>>> '
+    file = None
+
+    def __init__(self):
+        cmd.Cmd.__init__(self)
+        self.qqbot=threading.Thread(target=qqbot_process)
+
+    def do_exit(self, arg):
+        'Exit'
+        print("\n>>>Exit!")
+        return True
+        raise KeyboardInterrupt
+
+    # login state
+    # 0 logining, 1 verify, 2 success
+    def do_login(self, arg):
+        state = q.login()
+        if state == 2:
+            print("Login Success!")
+            print("token_002c: ", str(binascii.b2a_hex(q.token_002c)))
+            print("token_004c: ", str(binascii.b2a_hex(q.token_004c)))
+            print("session_key: ", str(binascii.b2a_hex(q.session_key)))
+        elif state == 1:
+            print("Verification Code:", verification_image_file)
+            try:
+                with open(verification_image_file, 'wb') as f:
+                    f.write(q.verification)
+            except Exception as e:
+                print(e)
+            code = input("Please input Verification Code: ")
+            state = q.send_code(code)
+            print("token_002c: ", str(binascii.b2a_hex(q.token_002c)))
+            print("token_004c: ", str(binascii.b2a_hex(q.token_004c)))
+            print("session_key: ", str(binascii.b2a_hex(q.session_key)))
+            # self.do_login(arg)
+        else:
+            print("Login Failed!")
+            print(q.last_error)
+        
+    def cmdloop(self):
+        cmd.Cmd.cmdloop(self)
+
+if __name__ == '__main__':
+    cli=QQBotCLI()
+    try:
+        cli.cmdloop()
+    except KeyboardInterrupt:
+        print("\n>>>Exit!")
+        exit(0)

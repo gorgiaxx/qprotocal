@@ -1,0 +1,9 @@
+setup.cfg
+setup.py
+qprotocal/__init__.py
+qprotocal.egg-info/PKG-INFO
+qprotocal.egg-info/SOURCES.txt
+qprotocal.egg-info/dependency_links.txt
+qprotocal.egg-info/entry_points.txt
+qprotocal.egg-info/not-zip-safe
+qprotocal.egg-info/top_level.txt

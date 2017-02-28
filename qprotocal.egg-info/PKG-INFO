@@ -1,0 +1,11 @@
+Metadata-Version: 1.0
+Name: qprotocal
+Version: 0.1.dev0
+Summary: Android QQ protocal for Python
+Home-page: http://blog.gorgiaxx.com
+Author: Gorgiaxx
+Author-email: gorgiaxx@gmail.com
+License: MIT
+Description: That's all.
+Keywords: qq protocal
+Platform: UNKNOWN
