@@ -7,7 +7,7 @@
 ### Usage
 目前只有一个登录demo
 
-
+```
 pip install virtualenv
 virtualenv env --python=/bin/python3
 source env/bin/activate
@@ -17,4 +17,4 @@ pip install -r requirements.txt
 
 cd ./test
 python3 ./test.py
-
+```
